@@ -1,0 +1,384 @@
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    min-height: 100vh;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    background:
+        linear-gradient(
+            rgba(0, 0, 0, 0.55),
+            rgba(0, 0, 0, 0.55)
+        ),
+        url("../imagens/scania.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 40px 20px;
+}
+
+
+/* =====================================================
+   FORMULÁRIO
+   ===================================================== */
+
+.formulario {
+    width: 100%;
+    max-width: 850px;
+
+    background: #ffffff;
+
+    border-radius: 15px;
+
+    padding: 35px 45px;
+
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.35);
+}
+
+
+/* =====================================================
+   TOPO
+   ===================================================== */
+
+.topo {
+    text-align: center;
+
+    margin-bottom: 30px;
+}
+
+
+.logo_topo {
+    display: block;
+
+    width: 300px;
+    max-width: 80%;
+
+    height: auto;
+
+    margin: 0 auto 15px auto;
+}
+
+
+.topo p {
+    font-size: 26px;
+
+    font-weight: 700;
+
+    color: #222;
+
+    margin-top: 5px;
+}
+
+
+/* =====================================================
+   GRUPOS
+   ===================================================== */
+
+.grupo {
+    width: 100%;
+
+    margin-bottom: 18px;
+}
+
+
+.grupo label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    color: #222;
+}
+
+
+/* =====================================================
+   LINHAS
+   ===================================================== */
+
+.linha {
+    display: flex;
+
+    gap: 20px;
+
+    width: 100%;
+}
+
+
+.linha .grupo {
+    flex: 1;
+}
+
+
+/* =====================================================
+   INPUTS
+   ===================================================== */
+
+input[type="text"],
+input[type="date"],
+input[type="tel"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+
+    height: 44px;
+
+    padding: 0 13px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 7px;
+
+    background: #fff;
+
+    color: #222;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+input:focus {
+    border-color: #e30613;
+
+    box-shadow:
+        0 0 0 3px rgba(227, 6, 19, 0.12);
+}
+
+
+input::placeholder {
+    color: #999;
+}
+
+
+/* =====================================================
+   CAMPO COM ERRO
+   ===================================================== */
+
+.input-erro {
+    border: 2px solid #e30613 !important;
+
+    box-shadow:
+        0 0 0 3px rgba(227, 6, 19, 0.10) !important;
+}
+
+
+/* =====================================================
+   MENSAGEM DE ERRO
+   ===================================================== */
+
+.erro {
+    display: block;
+
+    min-height: 16px;
+
+    margin-top: 5px;
+
+    color: #e30613;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   OPÇÕES
+   ===================================================== */
+
+.opcoes {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 15px;
+
+    margin-top: 5px;
+}
+
+
+.opcao {
+    display: flex !important;
+
+    align-items: center;
+
+    gap: 6px;
+
+    margin: 0 !important;
+
+    font-weight: 400 !important;
+
+    cursor: pointer;
+}
+
+
+.opcao input {
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   BOTÃO
+   ===================================================== */
+
+button[type="submit"] {
+    width: 100%;
+
+    height: 48px;
+
+    margin-top: 8px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #e30613;
+
+    color: #fff;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+button[type="submit"]:hover {
+    background: #c80510;
+
+    transform: translateY(-1px);
+}
+
+
+button[type="submit"]:active {
+    transform: translateY(0);
+}
+
+
+/* =====================================================
+   LINK LOGIN
+   ===================================================== */
+
+.login {
+    display: block;
+
+    text-align: center;
+
+    margin-top: 18px;
+
+    color: #e30613;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+.login:hover {
+    text-decoration: underline;
+}
+
+
+/* =====================================================
+   MENSAGENS DO FLASK
+   ===================================================== */
+
+.mensagem {
+    width: 100%;
+
+    padding: 12px 15px;
+
+    margin-bottom: 20px;
+
+    border-radius: 7px;
+
+    font-size: 14px;
+}
+
+
+.mensagem.erro {
+    color: #b00000;
+
+    background: #ffe5e5;
+
+    border: 1px solid #ffb3b3;
+}
+
+
+.mensagem.sucesso {
+    color: #126b35;
+
+    background: #e5f7ec;
+
+    border: 1px solid #a9dfbd;
+}
+
+
+/* =====================================================
+   RESPONSIVO
+   ===================================================== */
+
+@media (max-width: 700px) {
+
+    body {
+        padding: 20px 10px;
+    }
+
+
+    .formulario {
+        padding: 25px 20px;
+    }
+
+
+    .linha {
+        flex-direction: column;
+
+        gap: 0;
+    }
+
+
+    .logo_topo {
+        width: 240px;
+    }
+
+
+    .topo p {
+        font-size: 22px;
+    }
+
+
+    .opcoes {
+        flex-direction: column;
+
+        gap: 10px;
+    }
+
+}

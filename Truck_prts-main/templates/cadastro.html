@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro | Truck Parts</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/cadastro.css') }}"
+    >
+
+    <script
+        src="{{ url_for('static', filename='js/cadastrar.js') }}"
+        defer
+    ></script>
+</head>
+
+<body>
+    <div class="formulario">
+
+        <div class="topo">
+            <img
+                src="{{ url_for('static', filename='imagens/logo_topo.webp') }}"
+                alt="Truck Parts"
+                class="logo_topo"
+            >
+            <p>Crie sua conta</p>
+        </div>
+
+        {% with mensagens = get_flashed_messages(with_categories=true) %}
+            {% if mensagens %}
+                {% for categoria, mensagem in mensagens %}
+                    <div class="mensagem {{ categoria }}">
+                        {{ mensagem }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% if erro_banco %}
+            <div class="mensagem erro">
+                {{ erro_banco }}
+            </div>
+        {% endif %}
+
+        <form
+            action="{{ url_for('fazer_cadastro') }}"
+            method="post"
+            id="formCadastro"
+            novalidate
+        >
+
+            <div class="grupo">
+                <label for="nome">Nome completo</label>
+                <input
+                    type="text"
+                    id="nome"
+                    name="nome"
+                    placeholder="Digite seu nome"
+                    autocomplete="name"
+                    value="{{ dados.get('nome', '') if dados else '' }}"
+                    class="{% if campo_erro == 'nome' %}input-erro{% endif %}"
+                    required
+                >
+                <small id="erroNome" class="erro"></small>
+            </div>
+
+            <div class="linha">
+                <div class="grupo">
+                    <label for="data_nascimento">Data de nascimento</label>
+                    <input
+                        type="date"
+                        id="data_nascimento"
+                        name="data_nascimento"
+                        value="{{ dados.get('data_nascimento', '') if dados else '' }}"
+                        class="{% if campo_erro == 'data_nascimento' %}input-erro{% endif %}"
+                        required
+                    >
+                    <small id="erroData" class="erro"></small>
+                </div>
+
+                <div class="grupo">
+                    <label for="cpf">CPF</label>
+                    <input
+                        type="text"
+                        id="cpf"
+                        name="cpf"
+                        placeholder="000.000.000-00"
+                        maxlength="14"
+                        inputmode="numeric"
+                        autocomplete="off"
+                        value="{{ dados.get('cpf', '') if dados else '' }}"
+                        class="{% if campo_erro == 'cpf' %}input-erro{% endif %}"
+                        required
+                    >
+                    <small id="erroCpf" class="erro"></small>
+                </div>
+            </div>
+
+            <div class="linha">
+                <div class="grupo">
+                    <label for="telefone">Telefone</label>
+                    <input
+                        type="tel"
+                        id="telefone"
+                        name="telefone"
+                        placeholder="11999999999"
+                        inputmode="numeric"
+                        value="{{ dados.get('telefone', '') if dados else '' }}"
+                        class="{% if campo_erro == 'telefone' %}input-erro{% endif %}"
+                        required
+                    >
+                    <small id="erroTelefone" class="erro"></small>
+                </div>
+
+                <div class="grupo">
+                    <label for="email">E-mail</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="seuemail@email.com"
+                        autocomplete="email"
+                        value="{{ dados.get('email', '') if dados else '' }}"
+                        class="{% if campo_erro == 'email' %}input-erro{% endif %}"
+                        required
+                    >
+                    <small id="erroEmail" class="erro"></small>
+                </div>
+            </div>
+
+            <div class="linha">
+                <div class="grupo">
+                    <label for="cep">CEP</label>
+                    <input
+                        type="text"
+                        id="cep"
+                        name="cep"
+                        placeholder="00000-000"
+                        maxlength="9"
+                        inputmode="numeric"
+                        autocomplete="postal-code"
+                        value="{{ dados.get('cep', '') if dados else '' }}"
+                        class="{% if campo_erro == 'cep' %}input-erro{% endif %}"
+                        required
+                    >
+                    <small id="erroCep" class="erro"></small>
+                </div>
+
+                <div class="grupo">
+                    <label for="numero">Número</label>
+                    <input
+                        type="text"
+                        id="numero"
+                        name="numero"
+                        placeholder="Número"
+                        value="{{ dados.get('numero', '') if dados else '' }}"
+                        class="{% if campo_erro == 'numero' %}input-erro{% endif %}"
+                        required
+                    >
+                    <small id="erroNumero" class="erro"></small>
+                </div>
+            </div>
+
+            <div class="grupo">
+                <label for="complemento">Complemento</label>
+                <input
+                    type="text"
+                    id="complemento"
+                    name="complemento"
+                    placeholder="Apartamento, bloco..."
+                    value="{{ dados.get('complemento', '') if dados else '' }}"
+                >
+            </div>
+
+            <div class="grupo">
+                <label>Tipo de cadastro</label>
+                <div class="opcoes">
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="tipo_cadastro"
+                            value="pessoa_fisica"
+                            {% if dados and dados.get('tipo_cadastro') == 'pessoa_fisica' %}checked{% endif %}
+                            required
+                        >
+                        Pessoa Física
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="tipo_cadastro"
+                            value="pessoa_juridica"
+                            {% if dados and dados.get('tipo_cadastro') == 'pessoa_juridica' %}checked{% endif %}
+                        >
+                        Pessoa Jurídica
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="tipo_cadastro"
+                            value="revendedor"
+                            {% if dados and dados.get('tipo_cadastro') == 'revendedor' %}checked{% endif %}
+                        >
+                        Revendedor
+                    </label>
+                </div>
+                <small id="erroTipo" class="erro"></small>
+            </div>
+
+            <div class="grupo">
+                <label>Áreas de interesse</label>
+                <div class="opcoes">
+                    <label class="opcao">
+                        <input
+                            type="checkbox"
+                            name="interesses"
+                            value="Mecânica"
+                            {% if interesses_selecionados and 'Mecânica' in interesses_selecionados %}checked{% endif %}
+                        >
+                        Mecânica
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="checkbox"
+                            name="interesses"
+                            value="Elétrica"
+                            {% if interesses_selecionados and 'Elétrica' in interesses_selecionados %}checked{% endif %}
+                        >
+                        Elétrica
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="checkbox"
+                            name="interesses"
+                            value="Acessórios"
+                            {% if interesses_selecionados and 'Acessórios' in interesses_selecionados %}checked{% endif %}
+                        >
+                        Acessórios
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="checkbox"
+                            name="interesses"
+                            value="Pneus"
+                            {% if interesses_selecionados and 'Pneus' in interesses_selecionados %}checked{% endif %}
+                        >
+                        Pneus
+                    </label>
+                </div>
+            </div>
+
+            <div class="grupo">
+                <label for="senha">Senha</label>
+                <input
+                    type="password"
+                    id="senha"
+                    name="senha"
+                    placeholder="Mínimo 6 caracteres"
+                    autocomplete="new-password"
+                    class="{% if campo_erro == 'senha' %}input-erro{% endif %}"
+                    required
+                >
+                <small id="erroSenha" class="erro"></small>
+            </div>
+
+            <div class="grupo">
+                <label for="confirmar_senha">Confirmar senha</label>
+                <input
+                    type="password"
+                    id="confirmar_senha"
+                    name="confirmar_senha"
+                    placeholder="Digite novamente"
+                    autocomplete="new-password"
+                    class="{% if campo_erro == 'confirmar_senha' %}input-erro{% endif %}"
+                    required
+                >
+                <small id="erroConfirmarSenha" class="erro"></small>
+            </div>
+
+            <button type="submit">Criar minha conta</button>
+
+            <a href="{{ url_for('login') }}" class="login">
+                Já tenho uma conta
+            </a>
+
+        </form>
+    </div>
+</body>
+</html>
